@@ -11,7 +11,10 @@ int main()
 	for (int i = 0; i < FIELD_SIZE; i++)
 		secondPlayerGameField[i] = new char[FIELD_SIZE];
 	ResetGameField(firstPlayerGameField);
+	cout << "Пустое игровое поле имеет вид:" << endl;
 	PrintGameField(firstPlayerGameField);
+	InputShipCoordinates(firstPlayerGameField);
+
 
 	system("pause");
 	return 0;
