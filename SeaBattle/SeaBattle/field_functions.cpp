@@ -1,17 +1,17 @@
-#include "functions.h"
-// функция сброса поля
+п»ї#include "functions.h"
+// С„СѓРЅРєС†РёСЏ СЃР±СЂРѕСЃР° РїРѕР»СЏ
 void ResetGameField(char** gameField)
 {
 	for (int i = 0; i < FIELD_SIZE; i++)
 		for (int j = 0; j < FIELD_SIZE; j++)
 			gameField[i][j] = SEA;
 }
-// функция отображения поля на экране
+// С„СѓРЅРєС†РёСЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РїРѕР»СЏ РЅР° СЌРєСЂР°РЅРµ
 void PrintGameField(char**gameField)
 {
 	for (int i = 1; i <= FIELD_SIZE; i++)
 		cout << "   " << i;
-	int asciiCode = 65;
+	int asciiCode = 65;  // РєРѕРґ Р°РЅРіР»РёР№СЃРѕРєР№ Р±СѓРєРІС‹ A
 	cout << "\n |---|---|---|---|---|---|---|---|---|---|" << endl;
 	for (int i = 0; i < FIELD_SIZE; i++)
 	{

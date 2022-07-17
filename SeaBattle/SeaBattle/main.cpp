@@ -1,13 +1,13 @@
-#include "functions.h"
+п»ї#include "functions.h"
 
 int main()
 {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	char** firstPlayerGameField = new char* [FIELD_SIZE];  // поле первого игрока
+	char** firstPlayerGameField = new char* [FIELD_SIZE];  // РїРѕР»Рµ РїРµСЂРІРѕРіРѕ РёРіСЂРѕРєР°
 	for (int i = 0; i < FIELD_SIZE; i++)
 		firstPlayerGameField[i] = new char[FIELD_SIZE];
-	char** secondPlayerGameField = new char* [FIELD_SIZE];  // поле второго игрока
+	char** secondPlayerGameField = new char* [FIELD_SIZE];  // РїРѕР»Рµ РІС‚РѕСЂРѕРіРѕ РёРіСЂРѕРєР°
 	for (int i = 0; i < FIELD_SIZE; i++)
 		secondPlayerGameField[i] = new char[FIELD_SIZE];
 	ResetGameField(firstPlayerGameField);
