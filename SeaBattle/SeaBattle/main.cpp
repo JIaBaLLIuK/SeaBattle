@@ -13,7 +13,21 @@ int main()
 	ResetGameField(firstPlayerGameField);
 	cout << "Пустое игровое поле имеет вид:" << endl;
 	PrintGameField(firstPlayerGameField);
-	InputShipCoordinates(firstPlayerGameField);
+	cout << "Каким образом вы хотите разместить корабли на поле?\n1 - вручную\n2 - случайно" << endl;
+	int typeOfFieldInput = InputIntValue(1, 2);
+	switch (typeOfFieldInput)
+	{
+	case 1:
+		InputShipCoordinates(firstPlayerGameField);
+		break;
+	case 2:
+		RandomFieldGeneration(firstPlayerGameField);
+		firstPlayerGameField[5][5] = MISS;
+		break;
+	}
+	system("CLS");
+	cout << "Теперь ваше игровое поле имеет вид:" << endl;
+	PrintGameField(firstPlayerGameField);
 	
 
 	for (int i = 0; i < FIELD_SIZE; i++)

@@ -1,8 +1,8 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#define SEA '`'
-#define SHIP '#' 
+#define SEA '~'
+#define SHIP '#'
 #define HIT 'X'
 #define MISS 'O'
 #define FIELD_SIZE 10

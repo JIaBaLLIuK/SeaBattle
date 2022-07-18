@@ -19,7 +19,15 @@ void PrintGameField(char**gameField)
 		{
 			if (j == 0)
 				cout << (char)asciiCode++;
-			cout << "| " << gameField[i][j] << " ";
+			//cout << "| " << gameField[i][j] << " ";
+			cout << "| ";
+			if (gameField[i][j] == SHIP)
+				cout << "\033[34m" << SHIP << "\033[0m";
+			else if (gameField[i][j] == MISS)
+				cout << "\033[31m" << HIT << "\033[0m";
+			else
+				cout << gameField[i][j];
+			cout << " ";
 			if (j == FIELD_SIZE - 1)
 				cout << "|" << endl;
 		}
