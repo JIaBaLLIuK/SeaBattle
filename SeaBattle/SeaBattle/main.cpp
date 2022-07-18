@@ -22,7 +22,6 @@ int main()
 		break;
 	case 2:
 		RandomFieldGeneration(firstPlayerGameField);
-		firstPlayerGameField[5][5] = MISS;
 		break;
 	}
 	system("CLS");
