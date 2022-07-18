@@ -14,10 +14,7 @@ int main()
 	cout << "Пустое игровое поле имеет вид:" << endl;
 	PrintGameField(firstPlayerGameField);
 	InputShipCoordinates(firstPlayerGameField);
-	/*RandomFieldGeneration(firstPlayerGameField);
-	cout << "Случайное игровое поле имеет вид : " << endl;
-	PrintGameField(firstPlayerGameField);*/
-
+	
 
 	for (int i = 0; i < FIELD_SIZE; i++)
 		delete[]firstPlayerGameField[i];

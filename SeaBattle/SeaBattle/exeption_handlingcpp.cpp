@@ -16,6 +16,8 @@ int InputIntValue(int minValue, int maxValue)
 // функция проверки координат для функции  CheckShipPosition()
 bool CheckCurrentCoordinates(char** gameField, int rowNumber, int columnNumber)
 {
+	if (rowNumber < 0 || rowNumber > FIELD_SIZE - 1 || columnNumber < 0 || columnNumber > FIELD_SIZE - 1)
+		return false;
 	if (rowNumber > 0 && gameField[rowNumber - 1][columnNumber] != SEA || rowNumber < FIELD_SIZE - 1 && gameField[rowNumber + 1][columnNumber] != SEA)
 		return false;
 	if (columnNumber > 0 && gameField[rowNumber][columnNumber - 1] != SEA || columnNumber < FIELD_SIZE - 1 && gameField[rowNumber][columnNumber + 1] != SEA)
