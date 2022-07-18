@@ -3,8 +3,8 @@
 
 #define SEA '`'
 #define SHIP '#' 
-#define HIT '@'
-#define MISS 'X'
+#define HIT 'X'
+#define MISS 'O'
 #define FIELD_SIZE 10
 #define TOP 1
 #define BOTTOM 2

@@ -111,3 +111,48 @@ void DrawShip(char** gameField, int rowNumber, int columnNumber, int direction, 
 		break;
 	}
 }
+// функция случайной генерации игрового поля
+void RandomFieldGeneration(char** gameField)
+{
+	srand(time(NULL));
+	int rowNumber;
+	int columnNumber;
+	int direction;
+	do
+	{
+		rowNumber = rand() % 10;
+		columnNumber = rand() % 10;
+		direction = 1 + rand() % 4;
+	} while (!CheckShipPosition(gameField, rowNumber, columnNumber, direction, BATTLESHIP_SIZE));
+	DrawShip(gameField, rowNumber, columnNumber, direction, BATTLESHIP_SIZE);
+	for (int i = 0; i < 2; i++)
+	{
+		do
+		{
+			rowNumber = rand() % 10;
+			columnNumber = rand() % 10;
+			direction = 1 + rand() % 4;
+		} while (!CheckShipPosition(gameField, rowNumber, columnNumber, direction, CRUISER_SIZE));
+		DrawShip(gameField, rowNumber, columnNumber, direction, CRUISER_SIZE);
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		do
+		{
+			rowNumber = rand() % 10;
+			columnNumber = rand() % 10;
+			direction = 1 + rand() % 4;
+		} while (!CheckShipPosition(gameField, rowNumber, columnNumber, direction, DESTROYER_SIZE));
+		DrawShip(gameField, rowNumber, columnNumber, direction, DESTROYER_SIZE);
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		do
+		{
+			rowNumber = rand() % 10;
+			columnNumber = rand() % 10;
+			direction = 1 + rand() % 4;
+		} while (!CheckShipPosition(gameField, rowNumber, columnNumber, direction, DESTROYER_SIZE));
+		DrawShip(gameField, rowNumber, columnNumber, direction, BOAT_SIZE);
+	}
+}
