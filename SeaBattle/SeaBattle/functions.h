@@ -31,7 +31,7 @@ bool CheckCurrentCoordinates(char**, int, int);
 void DrawShip(char**, int, int, int, int);
 void RandomFieldGeneration(char**, int**);
 void RandomShipGeneration(char**, int**, int);
-void PlayerAttack(char**, char**);
-bool IsKilled();
+void PlayerAttack(char**, char**, int**);
+bool IsDestroyedShip(int**, int, int);
 
 #endif 

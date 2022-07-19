@@ -16,9 +16,12 @@ int main()
 	char** secondPlayerFieldForAttack = new char* [FIELD_SIZE];  // поле второго игрока, на котором отображаются атаки по первому игроку
 	for (int i = 0; i < FIELD_SIZE; i++)
 		secondPlayerFieldForAttack[i] = new char[FIELD_SIZE];
-	int** shipCoordinates = new int* [10];  // массив, каждая строка которого хранит стартовую позицию кораблая, направление и размер
+	int** fistPlayerShipCoordinates = new int* [10];  // массив, каждая строка которого хранит стартовую позицию кораблая, направление и размер
 	for (int i = 0; i < 10; i++)
-		shipCoordinates[i] = new int[4];
+		fistPlayerShipCoordinates[i] = new int[4];
+	int** secondPlayerShipCoordinates = new int* [10];  // массив, каждая строка которого хранит стартовую позицию кораблая, направление и размер
+	for (int i = 0; i < 10; i++)
+		secondPlayerShipCoordinates[i] = new int[4];
 	ResetGameField(firstPlayerGameField);
 	ResetGameField(secondPlayerGameField);
 	ResetGameField(firstPlayerFieldForAttack);
@@ -30,10 +33,10 @@ int main()
 	switch (typeOfFieldInput)
 	{
 	case 1:
-		InputShipCoordinates(firstPlayerGameField, shipCoordinates);
+		InputShipCoordinates(firstPlayerGameField, fistPlayerShipCoordinates);
 		break;
 	case 2:
-		RandomFieldGeneration(firstPlayerGameField, shipCoordinates);
+		RandomFieldGeneration(firstPlayerGameField, fistPlayerShipCoordinates);
 		break;
 	}
 	system("CLS");
@@ -42,8 +45,20 @@ int main()
 	cout << "Поле, по которому вам предстоит наносить удары, имеет вид:" << endl;
 	PrintGameField(firstPlayerFieldForAttack);
 
-
 	
+	//RandomFieldGeneration(secondPlayerGameField, secondPlayerShipCoordinates);
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	for (int j = 0; j < 4; j++)
+	//		cout << secondPlayerShipCoordinates[i][j] << " ";
+	//	cout << endl;
+	//}
+	//while (true)
+	//{
+	//	cout << "======test======" << endl;
+	//	PrintGameField(secondPlayerGameField);
+	//	PlayerAttack(secondPlayerGameField, firstPlayerFieldForAttack, secondPlayerShipCoordinates);
+	//}
 
 
 	for (int i = 0; i < FIELD_SIZE; i++)
@@ -59,8 +74,11 @@ int main()
 		delete[]secondPlayerFieldForAttack[i];
 	delete[]secondPlayerFieldForAttack;
 	for (int i = 0; i < 10; i++)
-		delete[]shipCoordinates[i];
-	delete[]shipCoordinates;
+		delete[]fistPlayerShipCoordinates[i];
+	delete[]fistPlayerShipCoordinates;
+	for (int i = 0; i < 10; i++)
+		delete[]secondPlayerShipCoordinates[i];
+	delete[]secondPlayerShipCoordinates;
 	system("pause");
 	return 0;
 }

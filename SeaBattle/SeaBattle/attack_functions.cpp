@@ -1,6 +1,6 @@
 #include "functions.h"
 // функция, реализующая атаку игрока
-void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack)
+void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCoordinates)
 {
 	bool isHitted = false;
 	do
@@ -34,7 +34,10 @@ void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack)
 			{
 				if (fieldForAttack[rowNumber][columnNumber] == SHIP)
 				{
-					cout << "Вы попали! Вы должны будете повторить атаку." << endl;
+					if (!IsDestroyedShip(shipCoordinates, rowNumber, columnNumber))
+						cout << "Вы попали! Вы будете должны повторить атаку." << endl;
+					else 
+						cout << "Вы потопили корабль! Вы будете должны повторить атаку." << endl;
 					isHitted = true;
 					fieldForAttack[rowNumber][columnNumber] = HIT;
 					fieldForShowAttack[rowNumber][columnNumber] = HIT;
@@ -52,12 +55,82 @@ void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack)
 		}
 		cout << "После атака поле соперника выглядит следующим образом:" << endl;
 		PrintGameField(fieldForShowAttack);
-		
 	} while (isHitted);
 }
-
-bool isKilled()
+// функция, проверяющая, уничтожен ли корабль соперника
+bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn)
 {
-
-	return true;
+	int hitsToShip = 0;
+	bool isDestroyed = false;
+	for (int i = 0; i < 10; i++)
+	{
+		int startRowCoordinate = shipCoordinates[i][0];
+		int startcolumnCoordinate = shipCoordinates[i][1];
+		int direction = shipCoordinates[i][2];
+		int size = shipCoordinates[i][3];
+		switch (direction)
+		{
+		case TOP:
+			for (int i = startRowCoordinate; i > startRowCoordinate - size; i--)
+			{
+				if (i == hitRow)
+				{
+					hitsToShip++;
+					if (hitsToShip == size)
+					{
+						isDestroyed = true;
+						hitsToShip = 0;
+					}
+					break;
+				}
+			}
+			break;
+		case BOTTOM:
+			for (int i = startRowCoordinate; i < startRowCoordinate + size; i++)
+			{
+				if (i == hitRow)
+				{
+					hitsToShip++;
+					if (hitsToShip == size)
+					{
+						isDestroyed = true;
+						hitsToShip = 0;
+					}
+					break;
+				}
+			}
+			break;
+		case LEFT:
+			for (int i = startcolumnCoordinate; i > startcolumnCoordinate - size; i--)
+			{
+				if (i == hitColumn)
+				{
+					hitsToShip++;
+					if (hitsToShip == size)
+					{
+						isDestroyed = true;
+						hitsToShip = 0;
+					}
+					break;
+				}
+			}
+			break;
+		case RIGHT:
+			for (int i = startcolumnCoordinate; i < startcolumnCoordinate + size; i++)
+			{
+				if (i == hitColumn)
+				{
+					hitsToShip++;
+					if (hitsToShip == size)
+					{
+						isDestroyed = true;
+						hitsToShip = 0;
+					}
+					break;
+				}
+			}
+			break;
+		}
+	}
+	return isDestroyed;
 }

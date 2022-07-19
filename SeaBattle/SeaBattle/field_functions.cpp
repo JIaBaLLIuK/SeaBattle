@@ -56,8 +56,13 @@ void InputCurrentShipCoordinates(char** gameField, int size, int** shipCoordinat
 		columnNumber = InputIntValue(1, 10);
 		rowNumber = int(row) - 65;
 		columnNumber--;
-		cout << "Введите направление корабля (1 - верх, 2 - низ, 3 - лево, 4 - право):" << endl;
-		direction = InputIntValue(1, 4);
+		if (size > 1)
+		{
+			cout << "Введите направление корабля (1 - верх, 2 - низ, 3 - лево, 4 - право):" << endl;
+			direction = InputIntValue(1, 4);
+		}
+		else
+			direction = 1;
 		isCorrectPosition = CheckShipPosition(gameField, rowNumber, columnNumber, direction, size);
 		if (!isCorrectPosition)
 			cout << "При вводе координат вы совершили ошибку. Ввод будет повторен!" << endl;
@@ -67,6 +72,8 @@ void InputCurrentShipCoordinates(char** gameField, int size, int** shipCoordinat
 	shipCoordinates[shipNumber][1] = columnNumber;
 	shipCoordinates[shipNumber][2] = direction;
 	shipCoordinates[shipNumber++][3] = size;
+	if (shipNumber == 10)
+		shipNumber = 0;
 	DrawShip(gameField, rowNumber, columnNumber, direction, size);
 }
 // функция ввода координат корабля
@@ -134,13 +141,18 @@ void RandomShipGeneration(char** gameField, int** shipCoordinates, int size)
 	{
 		rowNumber = rand() % 10;
 		columnNumber = rand() % 10;
-		direction = 1 + rand() % 4;
-	} while (!CheckShipPosition(gameField, rowNumber, columnNumber, direction, BATTLESHIP_SIZE));
+		if (size > 1)
+			direction = 1 + rand() % 4;
+		else
+			direction = 1;
+	} while (!CheckShipPosition(gameField, rowNumber, columnNumber, direction, size));
 	static int shipNumber = 0;
 	shipCoordinates[shipNumber][0] = rowNumber;
 	shipCoordinates[shipNumber][1] = columnNumber;
 	shipCoordinates[shipNumber][2] = direction;
 	shipCoordinates[shipNumber++][3] = size;
+	if (shipNumber == 10)
+		shipNumber = 0;
 	DrawShip(gameField, rowNumber, columnNumber, direction, size);
 }
 // функция случайной генерации игрового поля
