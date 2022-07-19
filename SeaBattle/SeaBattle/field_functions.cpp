@@ -7,7 +7,7 @@ void ResetGameField(char** gameField)
 			gameField[i][j] = SEA;
 }
 // функция отображения поля на экране
-void PrintGameField(char**gameField)
+void PrintGameField(char** gameField)
 {
 	for (int i = 1; i <= FIELD_SIZE; i++)
 		cout << "   " << i;
@@ -19,11 +19,12 @@ void PrintGameField(char**gameField)
 		{
 			if (j == 0)
 				cout << (char)asciiCode++;
-			//cout << "| " << gameField[i][j] << " ";
 			cout << "| ";
 			if (gameField[i][j] == SHIP)
 				cout << "\033[34m" << SHIP << "\033[0m";
 			else if (gameField[i][j] == MISS)
+				cout << "\033[32m" << MISS << "\033[0m";
+			else if (gameField[i][j] == HIT)
 				cout << "\033[31m" << HIT << "\033[0m";
 			else
 				cout << gameField[i][j];
@@ -35,14 +36,14 @@ void PrintGameField(char**gameField)
 	}
 }
 // функция ввода координат для отдельно взятого кораблая
-void InputCurrentShipCoordinates(char** gameField, int size)
+void InputCurrentShipCoordinates(char** gameField, int size, int** shipCoordinates)
 {
 	char row;
 	int rowNumber, columnNumber, direction;
 	bool isCorrectPosition;
 	do
 	{
-		cout << "Введите букву, соответсвующуую строке игрового поля:" << endl;
+		cout << "Введите букву, соответсвующую строке игрового поля:" << endl;
 		rewind(stdin);
 		row = getchar();
 		while (row < 'A' || row > 'J')
@@ -61,20 +62,25 @@ void InputCurrentShipCoordinates(char** gameField, int size)
 		if (!isCorrectPosition)
 			cout << "При вводе координат вы совершили ошибку. Ввод будет повторен!" << endl;
 	} while (!isCorrectPosition);
+	static int shipNumber = 0;
+	shipCoordinates[shipNumber][0] = rowNumber;
+	shipCoordinates[shipNumber][1] = columnNumber;
+	shipCoordinates[shipNumber][2] = direction;
+	shipCoordinates[shipNumber++][3] = size;
 	DrawShip(gameField, rowNumber, columnNumber, direction, size);
 }
 // функция ввода координат корабля
-void InputShipCoordinates(char** gameField)
+void InputShipCoordinates(char** gameField, int** shipCoordinates)
 {
 	cout << "Ввод координат для 4-хпалубного корабля (осталась 1 штука)." << endl;
-	InputCurrentShipCoordinates(gameField, BATTLESHIP_SIZE);
+	InputCurrentShipCoordinates(gameField, BATTLESHIP_SIZE, shipCoordinates);
 	system("CLS");
 	cout << "Теперь игровое поле имеет вид:" << endl;
 	PrintGameField(gameField);
 	for (int i = 2; i >= 1; i--)
 	{
 		cout << "Ввод координат для 3-хпалубного корабля (осталась " << i << " штука(штуки))." << endl;
-		InputCurrentShipCoordinates(gameField, CRUISER_SIZE);
+		InputCurrentShipCoordinates(gameField, CRUISER_SIZE, shipCoordinates);
 		system("CLS");
 		cout << "Теперь игровое поле имеет вид:" << endl;
 		PrintGameField(gameField);
@@ -82,7 +88,7 @@ void InputShipCoordinates(char** gameField)
 	for (int i = 3; i >= 1; i--)
 	{
 		cout << "Ввод координат для 2-хпалубного корабля (осталась " << i << " штука(штуки))." << endl;
-		InputCurrentShipCoordinates(gameField, DESTROYER_SIZE);
+		InputCurrentShipCoordinates(gameField, DESTROYER_SIZE, shipCoordinates);
 		system("CLS");
 		cout << "Теперь игровое поле имеет вид:" << endl;
 		PrintGameField(gameField);
@@ -90,7 +96,7 @@ void InputShipCoordinates(char** gameField)
 	for (int i = 4; i >= 1; i--)
 	{
 		cout << "Ввод координат для 1-палубного корабля (осталась " << i << " штука(штуки))." << endl;
-		InputCurrentShipCoordinates(gameField, BOAT_SIZE);
+		InputCurrentShipCoordinates(gameField, BOAT_SIZE, shipCoordinates);
 		system("CLS");
 		cout << "Теперь игровое поле имеет вид:" << endl;
 		PrintGameField(gameField);
@@ -119,48 +125,32 @@ void DrawShip(char** gameField, int rowNumber, int columnNumber, int direction, 
 		break;
 	}
 }
-// функция случайной генерации игрового поля
-void RandomFieldGeneration(char** gameField)
+// функиця случайной генерации координат кораблая
+void RandomShipGeneration(char** gameField, int** shipCoordinates, int size)
 {
 	srand(time(NULL));
-	int rowNumber;
-	int columnNumber;
-	int direction;
+	int rowNumber, columnNumber, direction;
 	do
 	{
 		rowNumber = rand() % 10;
 		columnNumber = rand() % 10;
 		direction = 1 + rand() % 4;
 	} while (!CheckShipPosition(gameField, rowNumber, columnNumber, direction, BATTLESHIP_SIZE));
-	DrawShip(gameField, rowNumber, columnNumber, direction, BATTLESHIP_SIZE);
+	static int shipNumber = 0;
+	shipCoordinates[shipNumber][0] = rowNumber;
+	shipCoordinates[shipNumber][1] = columnNumber;
+	shipCoordinates[shipNumber][2] = direction;
+	shipCoordinates[shipNumber++][3] = size;
+	DrawShip(gameField, rowNumber, columnNumber, direction, size);
+}
+// функция случайной генерации игрового поля
+void RandomFieldGeneration(char** gameField, int** shipCoordinates)
+{
+	RandomShipGeneration(gameField, shipCoordinates, BATTLESHIP_SIZE);
 	for (int i = 0; i < 2; i++)
-	{
-		do
-		{
-			rowNumber = rand() % 10;
-			columnNumber = rand() % 10;
-			direction = 1 + rand() % 4;
-		} while (!CheckShipPosition(gameField, rowNumber, columnNumber, direction, CRUISER_SIZE));
-		DrawShip(gameField, rowNumber, columnNumber, direction, CRUISER_SIZE);
-	}
+		RandomShipGeneration(gameField, shipCoordinates, CRUISER_SIZE);
 	for (int i = 0; i < 3; i++)
-	{
-		do
-		{
-			rowNumber = rand() % 10;
-			columnNumber = rand() % 10;
-			direction = 1 + rand() % 4;
-		} while (!CheckShipPosition(gameField, rowNumber, columnNumber, direction, DESTROYER_SIZE));
-		DrawShip(gameField, rowNumber, columnNumber, direction, DESTROYER_SIZE);
-	}
+		RandomShipGeneration(gameField, shipCoordinates, DESTROYER_SIZE);
 	for (int i = 0; i < 4; i++)
-	{
-		do
-		{
-			rowNumber = rand() % 10;
-			columnNumber = rand() % 10;
-			direction = 1 + rand() % 4;
-		} while (!CheckShipPosition(gameField, rowNumber, columnNumber, direction, DESTROYER_SIZE));
-		DrawShip(gameField, rowNumber, columnNumber, direction, BOAT_SIZE);
-	}
+		RandomShipGeneration(gameField, shipCoordinates, BOAT_SIZE);
 }

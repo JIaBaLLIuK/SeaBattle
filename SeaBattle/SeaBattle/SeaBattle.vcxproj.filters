@@ -26,7 +26,10 @@
     <ClCompile Include="field_functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="exeption_handlingcpp.cpp">
+    <ClCompile Include="exeption_handling.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="attack_functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

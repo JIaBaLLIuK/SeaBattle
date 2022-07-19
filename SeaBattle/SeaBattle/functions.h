@@ -21,20 +21,17 @@
 
 using namespace std;
 
-struct Ship
-{
-	int rowNumber;
-	int columnNumber;
-};
-
 int InputIntValue(int, int);
 void ResetGameField(char**);
 void PrintGameField(char**);
-void InputShipCoordinates(char**);
-void InputCurrentShipCoordinates(char**, int);
+void InputShipCoordinates(char**, int**);
+void InputCurrentShipCoordinates(char**, int, int**);
 bool CheckShipPosition(char**, int, int, int, int);
 bool CheckCurrentCoordinates(char**, int, int);
 void DrawShip(char**, int, int, int, int);
-void RandomFieldGeneration(char**);
+void RandomFieldGeneration(char**, int**);
+void RandomShipGeneration(char**, int**, int);
+void PlayerAttack(char**, char**);
+bool IsKilled();
 
 #endif 

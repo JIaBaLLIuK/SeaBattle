@@ -142,7 +142,8 @@
     <ClInclude Include="functions.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="exeption_handlingcpp.cpp" />
+    <ClCompile Include="attack_functions.cpp" />
+    <ClCompile Include="exeption_handling.cpp" />
     <ClCompile Include="field_functions.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
