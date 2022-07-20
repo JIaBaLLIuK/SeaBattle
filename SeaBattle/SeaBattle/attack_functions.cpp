@@ -1,5 +1,5 @@
-#include "functions.h"
-// функция, реализующая атаку игрока
+п»ї#include "functions.h"
+// С„СѓРЅРєС†РёСЏ, СЂРµР°Р»РёР·СѓСЋС‰Р°СЏ Р°С‚Р°РєСѓ РёРіСЂРѕРєР°
 void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCoordinates)
 {
 	bool isHitted = false;
@@ -10,23 +10,23 @@ void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 		int columnNumber, rowNumber;
 		do
 		{
-			cout << "Введите букву, соответсвующую строке игрового поля:" << endl;
+			cout << "Р’РІРµРґРёС‚Рµ Р±СѓРєРІСѓ, СЃРѕРѕС‚РІРµС‚СЃРІСѓСЋС‰СѓСЋ СЃС‚СЂРѕРєРµ РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ:" << endl;
 			rewind(stdin);
 			char row = getchar();
 			while (row < 'A' || row > 'J')
 			{
 				rewind(stdin);
-				cout << "Ошибка. Повторите ввод:" << endl;
+				cout << "РћС€РёР±РєР°. РџРѕРІС‚РѕСЂРёС‚Рµ РІРІРѕРґ:" << endl;
 				row = getchar();
 			}
-			cout << "Введите цифру, соответсвующую номеру столбца игрового поля:" << endl;
+			cout << "Р’РІРµРґРёС‚Рµ С†РёС„СЂСѓ, СЃРѕРѕС‚РІРµС‚СЃРІСѓСЋС‰СѓСЋ РЅРѕРјРµСЂСѓ СЃС‚РѕР»Р±С†Р° РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ:" << endl;
 			columnNumber = InputIntValue(1, 10);
 			rowNumber = (int)row - 65;
 			columnNumber--;
 			if (fieldForAttack[rowNumber][columnNumber] != SEA && fieldForAttack[rowNumber][columnNumber] != SHIP)
 			{
 				isForbiddenCell = true;
-				cout << "Вы не можете сюда ударить! Введите координаты заново" << endl;
+				cout << "Р’С‹ РЅРµ РјРѕР¶РµС‚Рµ СЃСЋРґР° СѓРґР°СЂРёС‚СЊ! Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ Р·Р°РЅРѕРІРѕ" << endl;
 			}
 		} while (isForbiddenCell);
 		for (int i = 0; i < FIELD_SIZE; i++)
@@ -36,9 +36,9 @@ void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 				if (fieldForAttack[rowNumber][columnNumber] == SHIP)
 				{
 					if (!IsDestroyedShip(shipCoordinates, rowNumber, columnNumber, hitsToShip))
-						cout << "Вы попали! Вы будете должны повторить атаку." << endl;
+						cout << "Р’С‹ РїРѕРїР°Р»Рё! Р’С‹ Р±СѓРґРµС‚Рµ РґРѕР»Р¶РЅС‹ РїРѕРІС‚РѕСЂРёС‚СЊ Р°С‚Р°РєСѓ." << endl;
 					else
-						cout << "Вы потопили корабль! Вы будете должны повторить атаку." << endl;
+						cout << "Р’С‹ РїРѕС‚РѕРїРёР»Рё РєРѕСЂР°Р±Р»СЊ! Р’С‹ Р±СѓРґРµС‚Рµ РґРѕР»Р¶РЅС‹ РїРѕРІС‚РѕСЂРёС‚СЊ Р°С‚Р°РєСѓ." << endl;
 					isHitted = true;
 					fieldForAttack[rowNumber][columnNumber] = HIT;
 					fieldForShowAttack[rowNumber][columnNumber] = HIT;
@@ -46,7 +46,7 @@ void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 				}
 				else if (fieldForAttack[rowNumber][columnNumber] == SEA)
 				{
-					cout << "Вы промахнулись! Ход переходит сопернику." << endl;
+					cout << "Р’С‹ РїСЂРѕРјР°С…РЅСѓР»РёСЃСЊ! РҐРѕРґ РїРµСЂРµС…РѕРґРёС‚ СЃРѕРїРµСЂРЅРёРєСѓ." << endl;
 					isHitted = false;
 					fieldForAttack[rowNumber][columnNumber] = MISS;
 					fieldForShowAttack[rowNumber][columnNumber] = MISS;
@@ -56,11 +56,11 @@ void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 			if (isHitted)
 				break;
 		}
-		cout << "После атака поле соперника выглядит следующим образом:" << endl;
+		cout << "РџРѕСЃР»Рµ Р°С‚Р°РєР° РїРѕР»Рµ СЃРѕРїРµСЂРЅРёРєР° РІС‹РіР»СЏРґРёС‚ СЃР»РµРґСѓСЋС‰РёРј РѕР±СЂР°Р·РѕРј:" << endl;
 		PrintGameField(fieldForShowAttack);
 	} while (isHitted);
 }
-// функция, проверяющая, уничтожен ли корабль соперника
+// С„СѓРЅРєС†РёСЏ, РїСЂРѕРІРµСЂСЏСЋС‰Р°СЏ, СѓРЅРёС‡С‚РѕР¶РµРЅ Р»Рё РєРѕСЂР°Р±Р»СЊ СЃРѕРїРµСЂРЅРёРєР°
 bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hitsToShip)
 {
 	bool isDestroyed = false;

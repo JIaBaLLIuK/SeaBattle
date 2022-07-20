@@ -1,5 +1,5 @@
-#include "functions.h"
-// функция проверки ввода числа на заданном диапозоне
+п»ї#include "functions.h"
+// С„СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєРё РІРІРѕРґР° С‡РёСЃР»Р° РЅР° Р·Р°РґР°РЅРЅРѕРј РґРёР°РїРѕР·РѕРЅРµ
 int InputIntValue(int minValue, int maxValue)
 {
 	int number;
@@ -8,12 +8,12 @@ int InputIntValue(int minValue, int maxValue)
 	{
 		cin.clear();
 		cin.ignore(INT_MAX, '\n');
-		cout << "Ошибка. Повторите ввод:" << endl;
+		cout << "РћС€РёР±РєР°. РџРѕРІС‚РѕСЂРёС‚Рµ РІРІРѕРґ:" << endl;
 		cin >> number;
 	}
 	return number;
 }
-// функция проверки координат для функции  CheckShipPosition()
+// С„СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєРё РєРѕРѕСЂРґРёРЅР°С‚ РґР»СЏ С„СѓРЅРєС†РёРё  CheckShipPosition()
 bool CheckCurrentCoordinates(char** gameField, int rowNumber, int columnNumber)
 {
 	if (rowNumber < 0 || rowNumber > FIELD_SIZE - 1 || columnNumber < 0 || columnNumber > FIELD_SIZE - 1)
@@ -34,7 +34,7 @@ bool CheckCurrentCoordinates(char** gameField, int rowNumber, int columnNumber)
 		return false;
 	return true;
 }
-// функция проверки введенных координат
+// С„СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєРё РІРІРµРґРµРЅРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚
 bool CheckShipPosition(char** gameField, int rowNumber, int columnNumber, int direction, int size)
 {
 	switch (direction)

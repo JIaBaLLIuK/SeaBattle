@@ -1,4 +1,4 @@
-#ifndef FUNCTIONS_H
+п»ї#ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
 #define SEA '~'
@@ -35,7 +35,7 @@ void RandomShipGeneration(char**, int**, int);
 void PlayerAttack(char**, char**, int**);
 bool IsDestroyedShip(int**, int, int, int&);
 
-// шаблонная функция для выеделение памяти под двумерные массивы
+// С€Р°Р±Р»РѕРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РґР»СЏ РІС‹РµРґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґ РґРІСѓРјРµСЂРЅС‹Рµ РјР°СЃСЃРёРІС‹
 template <typename type>
 void MemoryAllocation(type*** array, int rowAmount, int columnAmount)
 {
