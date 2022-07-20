@@ -32,6 +32,6 @@ void DrawShip(char**, int, int, int, int);
 void RandomFieldGeneration(char**, int**);
 void RandomShipGeneration(char**, int**, int);
 void PlayerAttack(char**, char**, int**);
-bool IsDestroyedShip(int**, int, int);
+bool IsDestroyedShip(int**, int, int, int&);
 
 #endif 

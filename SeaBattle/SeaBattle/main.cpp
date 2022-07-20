@@ -46,19 +46,19 @@ int main()
 	PrintGameField(firstPlayerFieldForAttack);
 
 	
-	//RandomFieldGeneration(secondPlayerGameField, secondPlayerShipCoordinates);
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	for (int j = 0; j < 4; j++)
-	//		cout << secondPlayerShipCoordinates[i][j] << " ";
-	//	cout << endl;
-	//}
-	//while (true)
-	//{
-	//	cout << "======test======" << endl;
-	//	PrintGameField(secondPlayerGameField);
-	//	PlayerAttack(secondPlayerGameField, firstPlayerFieldForAttack, secondPlayerShipCoordinates);
-	//}
+	RandomFieldGeneration(secondPlayerGameField, secondPlayerShipCoordinates);
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 4; j++)
+			cout << secondPlayerShipCoordinates[i][j] << " ";
+		cout << endl;
+	}
+	while (true)
+	{
+		cout << "======test======" << endl;
+		PrintGameField(secondPlayerGameField);
+		PlayerAttack(secondPlayerGameField, firstPlayerFieldForAttack, secondPlayerShipCoordinates);
+	}
 
 
 	for (int i = 0; i < FIELD_SIZE; i++)

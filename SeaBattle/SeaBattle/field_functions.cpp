@@ -67,7 +67,7 @@ void InputCurrentShipCoordinates(char** gameField, int size, int** shipCoordinat
 		if (!isCorrectPosition)
 			cout << "При вводе координат вы совершили ошибку. Ввод будет повторен!" << endl;
 	} while (!isCorrectPosition);
-	static int shipNumber = 0;
+	static int shipNumber;
 	shipCoordinates[shipNumber][0] = rowNumber;
 	shipCoordinates[shipNumber][1] = columnNumber;
 	shipCoordinates[shipNumber][2] = direction;
@@ -146,7 +146,7 @@ void RandomShipGeneration(char** gameField, int** shipCoordinates, int size)
 		else
 			direction = 1;
 	} while (!CheckShipPosition(gameField, rowNumber, columnNumber, direction, size));
-	static int shipNumber = 0;
+	static int shipNumber;
 	shipCoordinates[shipNumber][0] = rowNumber;
 	shipCoordinates[shipNumber][1] = columnNumber;
 	shipCoordinates[shipNumber][2] = direction;

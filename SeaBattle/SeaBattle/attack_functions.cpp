@@ -3,6 +3,7 @@
 void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCoordinates)
 {
 	bool isHitted = false;
+	int hitsToShip = 0;
 	do
 	{
 		bool isForbiddenCell = false;
@@ -34,9 +35,9 @@ void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 			{
 				if (fieldForAttack[rowNumber][columnNumber] == SHIP)
 				{
-					if (!IsDestroyedShip(shipCoordinates, rowNumber, columnNumber))
+					if (!IsDestroyedShip(shipCoordinates, rowNumber, columnNumber, hitsToShip))
 						cout << "Вы попали! Вы будете должны повторить атаку." << endl;
-					else 
+					else
 						cout << "Вы потопили корабль! Вы будете должны повторить атаку." << endl;
 					isHitted = true;
 					fieldForAttack[rowNumber][columnNumber] = HIT;
@@ -52,15 +53,16 @@ void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 					break;
 				}
 			}
+			if (isHitted)
+				break;
 		}
 		cout << "После атака поле соперника выглядит следующим образом:" << endl;
 		PrintGameField(fieldForShowAttack);
 	} while (isHitted);
 }
 // функция, проверяющая, уничтожен ли корабль соперника
-bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn)
+bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hitsToShip)
 {
-	int hitsToShip = 0;
 	bool isDestroyed = false;
 	for (int i = 0; i < 10; i++)
 	{
@@ -68,14 +70,16 @@ bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn)
 		int startcolumnCoordinate = shipCoordinates[i][1];
 		int direction = shipCoordinates[i][2];
 		int size = shipCoordinates[i][3];
+		bool checkBreak = false;
 		switch (direction)
 		{
 		case TOP:
 			for (int i = startRowCoordinate; i > startRowCoordinate - size; i--)
 			{
-				if (i == hitRow)
+				if (i == hitRow && startcolumnCoordinate == hitColumn)
 				{
 					hitsToShip++;
+					checkBreak = true;
 					if (hitsToShip == size)
 					{
 						isDestroyed = true;
@@ -88,9 +92,10 @@ bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn)
 		case BOTTOM:
 			for (int i = startRowCoordinate; i < startRowCoordinate + size; i++)
 			{
-				if (i == hitRow)
+				if (i == hitRow && startcolumnCoordinate == hitColumn)
 				{
 					hitsToShip++;
+					checkBreak = true;
 					if (hitsToShip == size)
 					{
 						isDestroyed = true;
@@ -103,9 +108,10 @@ bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn)
 		case LEFT:
 			for (int i = startcolumnCoordinate; i > startcolumnCoordinate - size; i--)
 			{
-				if (i == hitColumn)
+				if (i == hitColumn && startRowCoordinate == hitRow)
 				{
 					hitsToShip++;
+					checkBreak = true;
 					if (hitsToShip == size)
 					{
 						isDestroyed = true;
@@ -118,9 +124,10 @@ bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn)
 		case RIGHT:
 			for (int i = startcolumnCoordinate; i < startcolumnCoordinate + size; i++)
 			{
-				if (i == hitColumn)
+				if (i == hitColumn && startRowCoordinate == hitRow)
 				{
 					hitsToShip++;
+					checkBreak = true;
 					if (hitsToShip == size)
 					{
 						isDestroyed = true;
@@ -131,6 +138,8 @@ bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn)
 			}
 			break;
 		}
+		if (checkBreak)
+			break;
 	}
 	return isDestroyed;
 }
