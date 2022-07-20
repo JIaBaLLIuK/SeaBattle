@@ -21,6 +21,7 @@
 
 using namespace std;
 
+
 int InputIntValue(int, int);
 void ResetGameField(char**);
 void PrintGameField(char**);
@@ -33,5 +34,14 @@ void RandomFieldGeneration(char**, int**);
 void RandomShipGeneration(char**, int**, int);
 void PlayerAttack(char**, char**, int**);
 bool IsDestroyedShip(int**, int, int, int&);
+
+// шаблонная функция для выеделение памяти под двумерные массивы
+template <typename type>
+void MemoryAllocation(type*** array, int rowAmount, int columnAmount)
+{
+	(*array) = new type * [rowAmount];
+	for (int i = 0; i < rowAmount; i++)
+		(*array)[i] = new type[columnAmount];
+}
 
 #endif 

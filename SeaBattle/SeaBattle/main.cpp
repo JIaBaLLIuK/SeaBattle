@@ -4,24 +4,18 @@ int main()
 {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	char** firstPlayerGameField = new char* [FIELD_SIZE];  // поле первого игрока
-	for (int i = 0; i < FIELD_SIZE; i++)
-		firstPlayerGameField[i] = new char[FIELD_SIZE];
-	char** secondPlayerGameField = new char* [FIELD_SIZE];  // поле второго игрока
-	for (int i = 0; i < FIELD_SIZE; i++)
-		secondPlayerGameField[i] = new char[FIELD_SIZE];
-	char** firstPlayerFieldForAttack = new char* [FIELD_SIZE];  // поле первого игрока, на котором отображаются атаки по второму игроку
-	for (int i = 0; i < FIELD_SIZE; i++)
-		firstPlayerFieldForAttack[i] = new char[FIELD_SIZE];
-	char** secondPlayerFieldForAttack = new char* [FIELD_SIZE];  // поле второго игрока, на котором отображаются атаки по первому игроку
-	for (int i = 0; i < FIELD_SIZE; i++)
-		secondPlayerFieldForAttack[i] = new char[FIELD_SIZE];
-	int** fistPlayerShipCoordinates = new int* [10];  // массив, каждая строка которого хранит стартовую позицию кораблая, направление и размер
-	for (int i = 0; i < 10; i++)
-		fistPlayerShipCoordinates[i] = new int[4];
-	int** secondPlayerShipCoordinates = new int* [10];  // массив, каждая строка которого хранит стартовую позицию кораблая, направление и размер
-	for (int i = 0; i < 10; i++)
-		secondPlayerShipCoordinates[i] = new int[4];
+	char** firstPlayerGameField = NULL;
+	char** secondPlayerGameField = NULL;
+	char** firstPlayerFieldForAttack = NULL;
+	char** secondPlayerFieldForAttack = NULL;
+	int** fistPlayerShipCoordinates = NULL;
+	int** secondPlayerShipCoordinates = NULL;
+	MemoryAllocation(&firstPlayerGameField, FIELD_SIZE, FIELD_SIZE);
+	MemoryAllocation(&secondPlayerGameField, FIELD_SIZE, FIELD_SIZE);
+	MemoryAllocation(&firstPlayerFieldForAttack, FIELD_SIZE, FIELD_SIZE);
+	MemoryAllocation(&secondPlayerFieldForAttack, FIELD_SIZE, FIELD_SIZE);
+	MemoryAllocation(&fistPlayerShipCoordinates, 10, 4);
+	MemoryAllocation(&secondPlayerShipCoordinates, 10, 4);
 	ResetGameField(firstPlayerGameField);
 	ResetGameField(secondPlayerGameField);
 	ResetGameField(firstPlayerFieldForAttack);
