@@ -43,5 +43,13 @@ void MemoryAllocation(type*** array, int rowAmount, int columnAmount)
 	for (int i = 0; i < rowAmount; i++)
 		(*array)[i] = new type[columnAmount];
 }
+// шаблонная функция для удаления двумерных массивов
+template <typename type>
+void MemoryDelete(type*** array, int rowAmount, int columnAmount)
+{
+	for (int i = 0; i < rowAmount; i++)
+		delete[](*array)[i];
+	delete[](*array);
+}
 
 #endif 

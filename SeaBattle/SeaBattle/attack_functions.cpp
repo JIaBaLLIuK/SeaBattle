@@ -3,7 +3,7 @@
 void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCoordinates)
 {
 	bool isHitted = false;
-	int hitsToShip = 0;
+	static int hitsToShip = 0;
 	do
 	{
 		bool isForbiddenCell = false;
@@ -64,19 +64,20 @@ void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hitsToShip)
 {
 	bool isDestroyed = false;
+	int startRowCoordinate, startColumnCoordinate, direction, size;
 	for (int i = 0; i < 10; i++)
 	{
-		int startRowCoordinate = shipCoordinates[i][0];
-		int startcolumnCoordinate = shipCoordinates[i][1];
-		int direction = shipCoordinates[i][2];
-		int size = shipCoordinates[i][3];
+		startRowCoordinate = shipCoordinates[i][0];
+		startColumnCoordinate = shipCoordinates[i][1];
+		direction = shipCoordinates[i][2];
+		size = shipCoordinates[i][3];
 		bool checkBreak = false;
 		switch (direction)
 		{
 		case TOP:
 			for (int i = startRowCoordinate; i > startRowCoordinate - size; i--)
 			{
-				if (i == hitRow && startcolumnCoordinate == hitColumn)
+				if (i == hitRow && startColumnCoordinate == hitColumn)
 				{
 					hitsToShip++;
 					checkBreak = true;
@@ -92,7 +93,7 @@ bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hits
 		case BOTTOM:
 			for (int i = startRowCoordinate; i < startRowCoordinate + size; i++)
 			{
-				if (i == hitRow && startcolumnCoordinate == hitColumn)
+				if (i == hitRow && startColumnCoordinate == hitColumn)
 				{
 					hitsToShip++;
 					checkBreak = true;
@@ -106,7 +107,7 @@ bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hits
 			}
 			break;
 		case LEFT:
-			for (int i = startcolumnCoordinate; i > startcolumnCoordinate - size; i--)
+			for (int i = startColumnCoordinate; i > startColumnCoordinate - size; i--)
 			{
 				if (i == hitColumn && startRowCoordinate == hitRow)
 				{
@@ -122,7 +123,7 @@ bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hits
 			}
 			break;
 		case RIGHT:
-			for (int i = startcolumnCoordinate; i < startcolumnCoordinate + size; i++)
+			for (int i = startColumnCoordinate; i < startColumnCoordinate + size; i++)
 			{
 				if (i == hitColumn && startRowCoordinate == hitRow)
 				{

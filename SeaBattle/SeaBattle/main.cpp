@@ -55,24 +55,12 @@ int main()
 	}
 
 
-	for (int i = 0; i < FIELD_SIZE; i++)
-		delete[]firstPlayerGameField[i];
-	delete[]firstPlayerGameField;
-	for (int i = 0; i < FIELD_SIZE; i++)
-		delete[]secondPlayerGameField[i];
-	delete[]secondPlayerGameField;
-	for (int i = 0; i < FIELD_SIZE; i++)
-		delete[]firstPlayerFieldForAttack[i];
-	delete[]firstPlayerFieldForAttack;
-	for (int i = 0; i < FIELD_SIZE; i++)
-		delete[]secondPlayerFieldForAttack[i];
-	delete[]secondPlayerFieldForAttack;
-	for (int i = 0; i < 10; i++)
-		delete[]fistPlayerShipCoordinates[i];
-	delete[]fistPlayerShipCoordinates;
-	for (int i = 0; i < 10; i++)
-		delete[]secondPlayerShipCoordinates[i];
-	delete[]secondPlayerShipCoordinates;
+	MemoryDelete(&firstPlayerGameField, FIELD_SIZE, FIELD_SIZE);
+	MemoryDelete(&secondPlayerGameField, FIELD_SIZE, FIELD_SIZE);
+	MemoryDelete(&firstPlayerFieldForAttack, FIELD_SIZE, FIELD_SIZE);
+	MemoryDelete(&secondPlayerFieldForAttack, FIELD_SIZE, FIELD_SIZE);
+	MemoryDelete(&fistPlayerShipCoordinates, 10, 4);
+	MemoryDelete(&secondPlayerShipCoordinates, 10, 4);
 	system("pause");
 	return 0;
 }
