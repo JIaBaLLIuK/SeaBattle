@@ -146,6 +146,7 @@
     <ClCompile Include="exeption_handling.cpp" />
     <ClCompile Include="field_functions.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu_functions.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

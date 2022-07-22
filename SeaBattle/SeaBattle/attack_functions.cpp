@@ -1,6 +1,6 @@
 ﻿#include "functions.h"
 // функция, реализующая атаку игрока
-void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCoordinates)
+bool PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCoordinates)
 {
 	bool isHitted = false;
 	static int hitsToShip = 0;
@@ -10,6 +10,11 @@ void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 		int columnNumber, rowNumber;
 		do
 		{
+			if (IsWinner(fieldForAttack))
+			{
+				cout << "Вы победили! Поздравляю!" << endl;
+				return true;
+			}
 			cout << "Введите букву, соответсвующую строке игрового поля:" << endl;
 			rewind(stdin);
 			char row = getchar();
@@ -28,6 +33,8 @@ void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 				isForbiddenCell = true;
 				cout << "Вы не можете сюда ударить! Введите координаты заново" << endl;
 			}
+			else
+				isForbiddenCell = false;
 		} while (isForbiddenCell);
 		for (int i = 0; i < FIELD_SIZE; i++)
 		{
@@ -59,6 +66,7 @@ void PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 		cout << "После атака поле соперника выглядит следующим образом:" << endl;
 		PrintGameField(fieldForShowAttack);
 	} while (isHitted);
+	return false;
 }
 // функция, проверяющая, уничтожен ли корабль соперника
 bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hitsToShip)

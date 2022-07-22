@@ -8,59 +8,56 @@ int main()
 	char** secondPlayerGameField = NULL;
 	char** firstPlayerFieldForAttack = NULL;
 	char** secondPlayerFieldForAttack = NULL;
-	int** fistPlayerShipCoordinates = NULL;
+	int** firstPlayerShipCoordinates = NULL;
 	int** secondPlayerShipCoordinates = NULL;
+	// выделение памяти под все массивы
 	MemoryAllocation(&firstPlayerGameField, FIELD_SIZE, FIELD_SIZE);
 	MemoryAllocation(&secondPlayerGameField, FIELD_SIZE, FIELD_SIZE);
 	MemoryAllocation(&firstPlayerFieldForAttack, FIELD_SIZE, FIELD_SIZE);
 	MemoryAllocation(&secondPlayerFieldForAttack, FIELD_SIZE, FIELD_SIZE);
-	MemoryAllocation(&fistPlayerShipCoordinates, 10, 4);
+	MemoryAllocation(&firstPlayerShipCoordinates, 10, 4);
 	MemoryAllocation(&secondPlayerShipCoordinates, 10, 4);
-	ResetGameField(firstPlayerGameField);
-	ResetGameField(secondPlayerGameField);
 	ResetGameField(firstPlayerFieldForAttack);
 	ResetGameField(secondPlayerFieldForAttack);
-	cout << "Пустое игровое поле имеет вид:" << endl;
-	PrintGameField(firstPlayerGameField);
-	cout << "Каким образом вы хотите разместить корабли на поле?\n1 - вручную\n2 - случайно" << endl;
-	int typeOfFieldInput = InputIntValue(1, 2);
-	switch (typeOfFieldInput)
+	// расстановка кораблей игроками
+	cout << "Расставление кораблей на поле. Очередь первого игрока." << endl;
+	ShipPlacementMenu(firstPlayerGameField, firstPlayerShipCoordinates);
+	cout << "Расставление кораблей на поле. Очередь второго игрока." << endl;
+	ShipPlacementMenu(secondPlayerGameField, secondPlayerShipCoordinates);
+	// цикл ходов игроков
+	bool isWinner = false;
+	do
 	{
-	case 1:
-		InputShipCoordinates(firstPlayerGameField, fistPlayerShipCoordinates);
-		break;
-	case 2:
-		RandomFieldGeneration(firstPlayerGameField, fistPlayerShipCoordinates);
-		break;
-	}
-	system("CLS");
-	cout << "Теперь ваше игровое поле имеет вид:" << endl;
-	PrintGameField(firstPlayerGameField);
-	cout << "Поле, по которому вам предстоит наносить удары, имеет вид:" << endl;
-	PrintGameField(firstPlayerFieldForAttack);
-
-	
-	RandomFieldGeneration(secondPlayerGameField, secondPlayerShipCoordinates);
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 4; j++)
-			cout << secondPlayerShipCoordinates[i][j] << " ";
-		cout << endl;
-	}
-	while (true)
-	{
-		cout << "======test======" << endl;
+		cout << "Теперь поле первого игрока имеет вид:" << endl;
+		PrintGameField(firstPlayerGameField);
+		cout << "Ход первого игрока. Поле, по которому вам предстоит наносить удары, имеет вид:" << endl;
+		PrintGameField(firstPlayerFieldForAttack);
+		isWinner = PlayerAttack(secondPlayerGameField, firstPlayerFieldForAttack, secondPlayerShipCoordinates);
+		if (isWinner)
+			break;
+		system("pause");
+		system("CLS");
+		cout << "Теперь поле второго игрока имеет вид:" << endl;
 		PrintGameField(secondPlayerGameField);
-		PlayerAttack(secondPlayerGameField, firstPlayerFieldForAttack, secondPlayerShipCoordinates);
-	}
+		cout << "Ход второго игрока. Поле, по которому вам предстоит наносить удары, имеет вид:" << endl;
+		PrintGameField(secondPlayerFieldForAttack);
+		isWinner = PlayerAttack(firstPlayerGameField, secondPlayerFieldForAttack, secondPlayerShipCoordinates);
+		system("pause");
+		system("CLS");
+	} while (!isWinner);
 
 
+
+
+
+
+
+	// очистка выделенной памяти
 	MemoryDelete(&firstPlayerGameField, FIELD_SIZE, FIELD_SIZE);
 	MemoryDelete(&secondPlayerGameField, FIELD_SIZE, FIELD_SIZE);
 	MemoryDelete(&firstPlayerFieldForAttack, FIELD_SIZE, FIELD_SIZE);
 	MemoryDelete(&secondPlayerFieldForAttack, FIELD_SIZE, FIELD_SIZE);
-	MemoryDelete(&fistPlayerShipCoordinates, 10, 4);
+	MemoryDelete(&firstPlayerShipCoordinates, 10, 4);
 	MemoryDelete(&secondPlayerShipCoordinates, 10, 4);
-	system("pause");
 	return 0;
 }
