@@ -1,9 +1,10 @@
 ﻿#include "functions.h"
 // функция, реализующая атаку игрока
-bool PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCoordinates)
+bool PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCoordinates, int player)
 {
 	bool isHitted = false;
-	static int hitsToShip = 0;
+	static int firstPlayerHitsToShip = 0;
+	static int secondPlayerHitsToShip = 0;
 	do
 	{
 		bool isForbiddenCell = false;
@@ -36,32 +37,33 @@ bool PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 			else
 				isForbiddenCell = false;
 		} while (isForbiddenCell);
-		for (int i = 0; i < FIELD_SIZE; i++)
+		if (fieldForAttack[rowNumber][columnNumber] == SHIP)
 		{
-			for (int j = 0; j < FIELD_SIZE; j++)
+			switch (player)
 			{
-				if (fieldForAttack[rowNumber][columnNumber] == SHIP)
-				{
-					if (!IsDestroyedShip(shipCoordinates, rowNumber, columnNumber, hitsToShip))
-						cout << "Вы попали! Вы будете должны повторить атаку." << endl;
-					else
-						cout << "Вы потопили корабль! Вы будете должны повторить атаку." << endl;
-					isHitted = true;
-					fieldForAttack[rowNumber][columnNumber] = HIT;
-					fieldForShowAttack[rowNumber][columnNumber] = HIT;
-					break;
-				}
-				else if (fieldForAttack[rowNumber][columnNumber] == SEA)
-				{
-					cout << "Вы промахнулись! Ход переходит сопернику." << endl;
-					isHitted = false;
-					fieldForAttack[rowNumber][columnNumber] = MISS;
-					fieldForShowAttack[rowNumber][columnNumber] = MISS;
-					break;
-				}
-			}
-			if (isHitted)
+			case 1:
+				if (!IsDestroyedShip(shipCoordinates, rowNumber, columnNumber, firstPlayerHitsToShip))
+					cout << "Вы попали! Вы должны повторить атаку." << endl;
+				else
+					cout << "Вы потопили корабль! Вы должны повторить атаку." << endl;
 				break;
+			case 2:
+				if (!IsDestroyedShip(shipCoordinates, rowNumber, columnNumber, secondPlayerHitsToShip))
+					cout << "Вы попали! Вы должны повторить атаку." << endl;
+				else
+					cout << "Вы потопили корабль! Вы должны повторить атаку." << endl;
+				break;
+			}
+			isHitted = true;
+			fieldForAttack[rowNumber][columnNumber] = HIT;
+			fieldForShowAttack[rowNumber][columnNumber] = HIT;
+		}
+		else if (fieldForAttack[rowNumber][columnNumber] == SEA)
+		{
+			cout << "Вы промахнулись! Ход переходит сопернику." << endl;
+			isHitted = false;
+			fieldForAttack[rowNumber][columnNumber] = MISS;
+			fieldForShowAttack[rowNumber][columnNumber] = MISS;
 		}
 		cout << "После атака поле соперника выглядит следующим образом:" << endl;
 		PrintGameField(fieldForShowAttack);

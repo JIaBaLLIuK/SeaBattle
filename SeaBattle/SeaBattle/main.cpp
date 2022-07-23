@@ -24,34 +24,33 @@ int main()
 	ShipPlacementMenu(firstPlayerGameField, firstPlayerShipCoordinates);
 	cout << "Расставление кораблей на поле. Очередь второго игрока." << endl;
 	ShipPlacementMenu(secondPlayerGameField, secondPlayerShipCoordinates);
-	// цикл ходов игроков
-	bool isWinner = false;
+	int stopPlayingWithPerson = 0; 
+	// цикл на повторение игры
 	do
-	{
-		cout << "Теперь поле первого игрока имеет вид:" << endl;
-		PrintGameField(firstPlayerGameField);
-		cout << "Ход первого игрока. Поле, по которому вам предстоит наносить удары, имеет вид:" << endl;
-		PrintGameField(firstPlayerFieldForAttack);
-		isWinner = PlayerAttack(secondPlayerGameField, firstPlayerFieldForAttack, secondPlayerShipCoordinates);
-		if (isWinner)
-			break;
-		system("pause");
-		system("CLS");
-		cout << "Теперь поле второго игрока имеет вид:" << endl;
-		PrintGameField(secondPlayerGameField);
-		cout << "Ход второго игрока. Поле, по которому вам предстоит наносить удары, имеет вид:" << endl;
-		PrintGameField(secondPlayerFieldForAttack);
-		isWinner = PlayerAttack(firstPlayerGameField, secondPlayerFieldForAttack, secondPlayerShipCoordinates);
-		system("pause");
-		system("CLS");
-	} while (!isWinner);
-
-
-
-
-
-
-
+	{	// цикл ходов игроков
+		bool isWinner = false;
+		do
+		{
+			cout << "Теперь поле первого игрока имеет вид:" << endl;
+			PrintGameField(firstPlayerGameField);
+			cout << "Ход первого игрока. Поле, по которому вам предстоит наносить удары, имеет вид:" << endl;
+			PrintGameField(firstPlayerFieldForAttack);
+			isWinner = PlayerAttack(secondPlayerGameField, firstPlayerFieldForAttack, secondPlayerShipCoordinates, 1);
+			if (isWinner)
+				break;
+			system("pause");
+			system("CLS");
+			cout << "Теперь поле второго игрока имеет вид:" << endl;
+			PrintGameField(secondPlayerGameField);
+			cout << "Ход второго игрока. Поле, по которому вам предстоит наносить удары, имеет вид:" << endl;
+			PrintGameField(secondPlayerFieldForAttack);
+			isWinner = PlayerAttack(firstPlayerGameField, secondPlayerFieldForAttack, firstPlayerShipCoordinates, 2);
+			system("pause");
+			system("CLS");
+		} while (!isWinner);
+		cout << "Повторить игру?\n0 - да\n1 - нет" << endl;
+		stopPlayingWithPerson = InputIntValue(0, 1);
+	} while (!stopPlayingWithPerson);
 	// очистка выделенной памяти
 	MemoryDelete(&firstPlayerGameField, FIELD_SIZE, FIELD_SIZE);
 	MemoryDelete(&secondPlayerGameField, FIELD_SIZE, FIELD_SIZE);
