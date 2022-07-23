@@ -36,7 +36,7 @@ bool IsDestroyedShip(int**, int, int, int&);
 void ShipPlacementMenu(char**, int**);
 bool IsWinner(char**);
 
-// шаблонная функция для выеделение памяти под двумерные массивы
+// шаблонная функция для выделение памяти под двумерные массивы
 template <typename type>
 void MemoryAllocation(type*** array, int rowAmount, int columnAmount)
 {
