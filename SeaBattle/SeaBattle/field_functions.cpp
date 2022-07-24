@@ -166,3 +166,190 @@ void RandomFieldGeneration(char** gameField, int** shipCoordinates)
 	for (int i = 0; i < 4; i++)
 		RandomShipGeneration(gameField, shipCoordinates, BOAT_SIZE);
 }
+// функция отображения промахов вокруг уничтоженного корабля
+void DrawAroundShip(char** gameField, char** fieldForShowAttack, int startRowCoordinate, int startColumnCoordinate, int direction, int size)
+{
+	switch (direction)
+	{
+	case TOP:
+		for (int i = startRowCoordinate; i > startRowCoordinate - size; i--)
+		{
+			if (startColumnCoordinate > 0)
+			{
+				gameField[i][startColumnCoordinate - 1] = MISS;
+				fieldForShowAttack[i][startColumnCoordinate - 1] = MISS;
+			}
+			if (startColumnCoordinate < FIELD_SIZE - 1)
+			{
+				gameField[i][startColumnCoordinate + 1] = MISS;
+				fieldForShowAttack[i][startColumnCoordinate + 1] = MISS;
+			}
+		}
+		if (startRowCoordinate < FIELD_SIZE - 1)
+		{
+			gameField[startRowCoordinate + 1][startColumnCoordinate] = MISS;
+			fieldForShowAttack[startRowCoordinate + 1][startColumnCoordinate] = MISS;
+		}
+		if (startRowCoordinate - size >= 0)
+		{
+			gameField[startRowCoordinate - size][startColumnCoordinate] = MISS;
+			fieldForShowAttack[startRowCoordinate - size][startColumnCoordinate] = MISS;
+		}
+		if (startRowCoordinate < FIELD_SIZE - 1 && startColumnCoordinate > 0)
+		{
+			gameField[startRowCoordinate + 1][startColumnCoordinate - 1] = MISS;
+			fieldForShowAttack[startRowCoordinate + 1][startColumnCoordinate - 1] = MISS;
+		}
+		if (startRowCoordinate < FIELD_SIZE - 1 && startColumnCoordinate < FIELD_SIZE - 1)
+		{
+			gameField[startRowCoordinate + 1][startColumnCoordinate + 1] = MISS;
+			fieldForShowAttack[startRowCoordinate + 1][startColumnCoordinate + 1] = MISS;
+		}
+		if (startRowCoordinate - size >= 0 && startColumnCoordinate > 0)
+		{
+			gameField[startRowCoordinate - size][startColumnCoordinate - 1] = MISS;
+			fieldForShowAttack[startRowCoordinate - size][startColumnCoordinate - 1] = MISS;
+		}
+		if (startRowCoordinate - size >= 0 && startColumnCoordinate < FIELD_SIZE - 1)
+		{
+			gameField[startRowCoordinate - size][startColumnCoordinate + 1] = MISS;
+			fieldForShowAttack[startRowCoordinate - size][startColumnCoordinate + 1] = MISS;
+		}
+		break;
+	case BOTTOM:
+		for (int i = startRowCoordinate; i < startRowCoordinate + size; i++)
+		{
+			if (startColumnCoordinate > 0)
+			{
+				gameField[i][startColumnCoordinate - 1] = MISS;
+				fieldForShowAttack[i][startColumnCoordinate - 1] = MISS;
+			}
+			if (startColumnCoordinate < FIELD_SIZE - 1)
+			{
+				gameField[i][startColumnCoordinate + 1] = MISS;
+				fieldForShowAttack[i][startColumnCoordinate + 1] = MISS;
+			}
+		}
+		if (startRowCoordinate > 0)
+		{
+			gameField[startRowCoordinate - 1][startColumnCoordinate] = MISS;
+			fieldForShowAttack[startRowCoordinate - 1][startColumnCoordinate] = MISS;
+		}
+		if (startRowCoordinate + size < FIELD_SIZE)
+		{
+			gameField[startRowCoordinate + size][startColumnCoordinate] = MISS;
+			fieldForShowAttack[startRowCoordinate + size][startColumnCoordinate] = MISS;
+		}
+		if (startRowCoordinate > 0 && startColumnCoordinate > 0)
+		{
+			gameField[startRowCoordinate - 1][startColumnCoordinate - 1] = MISS;
+			fieldForShowAttack[startRowCoordinate - 1][startColumnCoordinate - 1] = MISS;
+		}
+		if (startRowCoordinate > 0 && startColumnCoordinate < FIELD_SIZE - 1)
+		{
+			gameField[startRowCoordinate - 1][startColumnCoordinate + 1] = MISS;
+			fieldForShowAttack[startRowCoordinate - 1][startColumnCoordinate + 1] = MISS;
+		}
+		if (startRowCoordinate + size < FIELD_SIZE && startColumnCoordinate > 0)
+		{
+			gameField[startRowCoordinate + size][startColumnCoordinate - 1] = MISS;
+			fieldForShowAttack[startRowCoordinate + size][startColumnCoordinate - 1] = MISS;
+		}
+		if (startRowCoordinate + size < FIELD_SIZE && startColumnCoordinate < FIELD_SIZE - 1)
+		{
+			gameField[startRowCoordinate + size][startColumnCoordinate + 1] = MISS;
+			fieldForShowAttack[startRowCoordinate + size][startColumnCoordinate + 1] = MISS;
+		}
+		break;
+	case LEFT:
+		for (int i = startColumnCoordinate; i > startColumnCoordinate - size; i--)
+		{
+			if (startRowCoordinate > 0)
+			{
+				gameField[startRowCoordinate - 1][i] = MISS;
+				fieldForShowAttack[startRowCoordinate - 1][i] = MISS;
+			}
+			if (startRowCoordinate < FIELD_SIZE - 1)
+			{
+				gameField[startRowCoordinate + 1][i] = MISS;
+				fieldForShowAttack[startRowCoordinate + 1][i] = MISS;
+			}
+		}
+		if (startColumnCoordinate < FIELD_SIZE - 1)
+		{
+			gameField[startRowCoordinate][startColumnCoordinate + 1] = MISS;
+			fieldForShowAttack[startRowCoordinate][startColumnCoordinate + 1] = MISS;
+		}
+		if (startColumnCoordinate - size >= 0)
+		{
+			gameField[startRowCoordinate][startColumnCoordinate - size] = MISS;
+			fieldForShowAttack[startRowCoordinate][startColumnCoordinate - size] = MISS;
+		}
+		if (startColumnCoordinate < FIELD_SIZE - 1 && startRowCoordinate > 0)
+		{
+			gameField[startRowCoordinate - 1][startColumnCoordinate + 1] = MISS;
+			fieldForShowAttack[startRowCoordinate - 1][startColumnCoordinate + 1] = MISS;
+		}
+		if (startColumnCoordinate < FIELD_SIZE - 1 && startRowCoordinate < FIELD_SIZE - 1)
+		{
+			gameField[startRowCoordinate + 1][startColumnCoordinate + 1] = MISS;
+			fieldForShowAttack[startRowCoordinate + 1][startColumnCoordinate + 1] = MISS;
+		}
+		if (startColumnCoordinate - size >= 0 && startRowCoordinate > 0)
+		{
+			gameField[startRowCoordinate - 1][startColumnCoordinate - size] = MISS;
+			fieldForShowAttack[startRowCoordinate - 1][startColumnCoordinate - size] = MISS;
+		}
+		if (startColumnCoordinate - size >= 0 && startRowCoordinate < FIELD_SIZE - 1)
+		{
+			gameField[startRowCoordinate + 1][startColumnCoordinate - size] = MISS;
+			fieldForShowAttack[startRowCoordinate + 1][startColumnCoordinate - size] = MISS;
+		}
+		break;
+	case RIGHT:
+		for (int i = startColumnCoordinate; i < startColumnCoordinate + size; i++)
+		{
+			if (startRowCoordinate > 0)
+			{
+				gameField[startRowCoordinate - 1][i] = MISS;
+				fieldForShowAttack[startRowCoordinate - 1][i] = MISS;
+			}
+			if (startRowCoordinate < FIELD_SIZE - 1)
+			{
+				gameField[startRowCoordinate + 1][i] = MISS;
+				fieldForShowAttack[startRowCoordinate + 1][i] = MISS;
+			}
+		}
+		if (startColumnCoordinate > 0)
+		{
+			gameField[startRowCoordinate][startColumnCoordinate - 1] = MISS;
+			fieldForShowAttack[startRowCoordinate][startColumnCoordinate - 1] = MISS;
+		}
+		if (startColumnCoordinate + size < FIELD_SIZE)
+		{
+			gameField[startRowCoordinate][startColumnCoordinate + size] = MISS;
+			fieldForShowAttack[startRowCoordinate][startColumnCoordinate + size] = MISS;
+		}
+		if (startRowCoordinate > 0 && startColumnCoordinate > 0)
+		{
+			gameField[startRowCoordinate - 1][startColumnCoordinate - 1] = MISS;
+			fieldForShowAttack[startRowCoordinate - 1][startColumnCoordinate - 1] = MISS;
+		}
+		if (startRowCoordinate < FIELD_SIZE - 1 && startColumnCoordinate > 0)
+		{
+			gameField[startRowCoordinate + 1][startColumnCoordinate - 1] = MISS;
+			fieldForShowAttack[startRowCoordinate + 1][startColumnCoordinate - 1] = MISS;
+		}
+		if (startColumnCoordinate + size < FIELD_SIZE && startRowCoordinate > 0)
+		{
+			gameField[startRowCoordinate - 1][startColumnCoordinate + size] = MISS;
+			fieldForShowAttack[startRowCoordinate - 1][startColumnCoordinate + size] = MISS;
+		}
+		if (startColumnCoordinate + size < FIELD_SIZE && startRowCoordinate < FIELD_SIZE - 1)
+		{
+			gameField[startRowCoordinate + 1][startColumnCoordinate + size] = MISS;
+			fieldForShowAttack[startRowCoordinate + 1][startColumnCoordinate + size] = MISS;
+		}
+		break;
+	}
+}

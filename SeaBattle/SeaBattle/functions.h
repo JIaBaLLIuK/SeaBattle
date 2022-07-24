@@ -32,9 +32,10 @@ void DrawShip(char**, int, int, int, int);
 void RandomFieldGeneration(char**, int**);
 void RandomShipGeneration(char**, int**, int);
 bool PlayerAttack(char**, char**, int**, int);
-bool IsDestroyedShip(int**, int, int, int&);
+bool IsDestroyedShip(int**, int, int, int&, char**, char**);
 void ShipPlacementMenu(char**, int**);
 bool IsWinner(char**);
+void DrawAroundShip(char**, char**, int, int, int, int);
 
 // шаблонная функция для выделение памяти под двумерные массивы
 template <typename type>

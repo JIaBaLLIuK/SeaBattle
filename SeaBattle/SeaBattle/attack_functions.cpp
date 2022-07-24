@@ -32,7 +32,7 @@ bool PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 			if (fieldForAttack[rowNumber][columnNumber] != SEA && fieldForAttack[rowNumber][columnNumber] != SHIP)
 			{
 				isForbiddenCell = true;
-				cout << "Вы не можете сюда ударить! Введите координаты заново" << endl;
+				cout << "Вы не можете сюда ударить! Введите координаты заново." << endl;
 			}
 			else
 				isForbiddenCell = false;
@@ -42,13 +42,13 @@ bool PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 			switch (player)
 			{
 			case 1:
-				if (!IsDestroyedShip(shipCoordinates, rowNumber, columnNumber, firstPlayerHitsToShip))
+				if (!IsDestroyedShip(shipCoordinates, rowNumber, columnNumber, firstPlayerHitsToShip, fieldForAttack, fieldForShowAttack))
 					cout << "Вы попали! Вы должны повторить атаку." << endl;
 				else
 					cout << "Вы потопили корабль! Вы должны повторить атаку." << endl;
 				break;
 			case 2:
-				if (!IsDestroyedShip(shipCoordinates, rowNumber, columnNumber, secondPlayerHitsToShip))
+				if (!IsDestroyedShip(shipCoordinates, rowNumber, columnNumber, secondPlayerHitsToShip, fieldForAttack, fieldForShowAttack))
 					cout << "Вы попали! Вы должны повторить атаку." << endl;
 				else
 					cout << "Вы потопили корабль! Вы должны повторить атаку." << endl;
@@ -71,7 +71,7 @@ bool PlayerAttack(char** fieldForAttack, char** fieldForShowAttack, int** shipCo
 	return false;
 }
 // функция, проверяющая, уничтожен ли корабль соперника
-bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hitsToShip)
+bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hitsToShip, char** gameField, char** fieldForShowAttack)
 {
 	bool isDestroyed = false;
 	int startRowCoordinate, startColumnCoordinate, direction, size;
@@ -95,6 +95,7 @@ bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hits
 					{
 						isDestroyed = true;
 						hitsToShip = 0;
+						DrawAroundShip(gameField, fieldForShowAttack, startRowCoordinate, startColumnCoordinate, direction, size);
 					}
 					break;
 				}
@@ -111,6 +112,7 @@ bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hits
 					{
 						isDestroyed = true;
 						hitsToShip = 0;
+						DrawAroundShip(gameField, fieldForShowAttack, startRowCoordinate, startColumnCoordinate, direction, size);
 					}
 					break;
 				}
@@ -127,6 +129,7 @@ bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hits
 					{
 						isDestroyed = true;
 						hitsToShip = 0;
+						DrawAroundShip(gameField, fieldForShowAttack, startRowCoordinate, startColumnCoordinate, direction, size);
 					}
 					break;
 				}
@@ -143,6 +146,7 @@ bool IsDestroyedShip(int** shipCoordinates, int hitRow, int hitColumn, int& hits
 					{
 						isDestroyed = true;
 						hitsToShip = 0;
+						DrawAroundShip(gameField, fieldForShowAttack, startRowCoordinate, startColumnCoordinate, direction, size);
 					}
 					break;
 				}
